@@ -1,18 +1,31 @@
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import { LockClosedIcon } from '@heroicons/react/24/solid';
+import { useAuth } from '@hooks/useAuth';
 
 export default function LoginPage() {
+  const [error, setError] = useState(null);
   const emailRef = useRef(null);
   const passRef = useRef(null);
+  const auth = useAuth();
 
   const submitHandler = (event) => {
     event.preventDefault(); //Evita que el comportamiento de un formulario sea desancadenado
-    const email = emailRef.current.value;//Obtiene la info del email de forma interna
+    const email = emailRef.current.value; //Obtiene la info del email de forma interna
     const password = passRef.current.value; //Obtiene el password de forma interna
     //Validar si la info suministrada cumple con los estándares
-    console.log(email,password); //Solo para este ejemplo, no es recomendable
-  
-  }
+    setError(null);
+    auth
+      .singIn(email, password)
+      .then(() => {
+        console.log('Login successful');
+      })
+      .catch((err) => {
+        if (err.response.status === 401) {
+          setError('Usuario o Contraseña incorrecta');
+        }
+      });
+  };
+
   return (
     <>
       <div className="min-h-full flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
@@ -55,7 +68,11 @@ export default function LoginPage() {
                 />
               </div>
             </div>
-
+            {error && (
+              <div class="p-3 mb-3 text-sm text-red-700 bg-red-100 rounded-lg dark:bg-red-200 dark:text-red-800" role="alert">
+                <span class="font-medium">Error!</span> {error}
+              </div>
+            )}
             <div className="flex items-center justify-between">
               <div className="flex items-center">
                 <input id="remember-me" name="remember-me" type="checkbox" className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded" />

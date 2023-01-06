@@ -1,9 +1,9 @@
-const API = process.env.NEXT_PUBLIC_API.URL;
+const API = process.env.NEXT_PUBLIC_API_URL;
 const VERSION = process.env.NEXT_PUBLIC_API_VERSION;
 
-const endPoint = {
+const endPoints = {
   auth: {
-    login: `${API}/${VERSION}/auth/login`,
+    login: `${API}/v1/auth/login`,
     profile: `${API}/${VERSION}/auth/profile`,
   },
   categories: {
@@ -31,3 +31,4 @@ const endPoint = {
     isAvailable: `${API}/${VERSION}/users/is-available/`,
   },
 };
+export default endPoints;
