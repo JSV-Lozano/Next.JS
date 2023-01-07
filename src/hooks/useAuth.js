@@ -1,4 +1,4 @@
-import { useState, useContext, createContext } from 'react';
+import { useState, useContext, createContext, useEffect } from 'react';
 import Cookies from 'js-cookie';
 import axios from 'axios';
 import endPoints from '@services/API/';
@@ -27,6 +27,7 @@ function useProviderAuth() {
     //tambien añadimos el header llamando a options.
     const { data: access_token } = await axios.post(endPoints.auth.login, { email, password }, options);
     //validamos existencia del access_token y lo guradamos en las cookie
+
     if (access_token) {
       const Token = access_token.access_token;
       Cookies.set('token', Token, { expires: 7 });
@@ -34,6 +35,7 @@ function useProviderAuth() {
       axios.defaults.headers.common['Authorization'] = `Bearer ${Token}`;
       const { data: user } = await axios.get(endPoints.auth.profile);
       console.log(user);
+      setUser(user);
     }
   };
   return {

@@ -18,7 +18,7 @@ const endPoints = {
     get: (filename) => `${API}/${VERSION}/files/${filename}`,
   },
   products: {
-    list: `${API}/${VERSION}/products`,
+    list: (limit, offset)=>`${API}/${VERSION}/products?limit=${limit}&offset=${offset}`,
     paginate: (limit = 10, offset = 1) => `${API}/${VERSION}/products?limit=${limit}&offset=${offset}`,
     get: (id) => `${API}/${VERSION}/products/${id}`,
     create: `${API}/${VERSION}/products`,

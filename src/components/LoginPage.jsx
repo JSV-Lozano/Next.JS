@@ -1,9 +1,11 @@
 import { useRef, useState } from 'react';
+import { useRouter } from 'next/router';
 import { LockClosedIcon } from '@heroicons/react/24/solid';
 import { useAuth } from '@hooks/useAuth';
 
 export default function LoginPage() {
   const [error, setError] = useState(null);
+  const router = useRouter();
   const emailRef = useRef(null);
   const passRef = useRef(null);
   const auth = useAuth();
@@ -17,7 +19,7 @@ export default function LoginPage() {
     auth
       .singIn(email, password)
       .then(() => {
-        console.log('Login successful');
+        router.push("/dashboard")
       })
       .catch((err) => {
         if (err.response.status === 401) {
@@ -69,8 +71,8 @@ export default function LoginPage() {
               </div>
             </div>
             {error && (
-              <div class="p-3 mb-3 text-sm text-red-700 bg-red-100 rounded-lg dark:bg-red-200 dark:text-red-800" role="alert">
-                <span class="font-medium">Error!</span> {error}
+              <div className="p-3 mb-3 text-sm text-red-700 bg-red-100 rounded-lg dark:bg-red-200 dark:text-red-800" role="alert">
+                <span className="font-medium">Error!</span> {error}
               </div>
             )}
             <div className="flex items-center justify-between">
