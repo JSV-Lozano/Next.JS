@@ -1,6 +1,5 @@
 /* This example requires Tailwind CSS v2.0+ */
 import { Fragment } from 'react';
-import Image from 'next/image';
 import { useAuth } from '@hooks/useAuth';
 import { Disclosure, Menu, Transition } from '@headlessui/react';
 import { BellIcon, Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
