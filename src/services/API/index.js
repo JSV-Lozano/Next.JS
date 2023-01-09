@@ -19,6 +19,7 @@ const endPoints = {
   },
   products: {
     list: (limit, offset)=>`${API}/${VERSION}/products?limit=${limit}&offset=${offset}`,
+    allProducts: `${API}/${VERSION}/products/`,
     paginate: (limit = 10, offset = 1) => `${API}/${VERSION}/products?limit=${limit}&offset=${offset}`,
     get: (id) => `${API}/${VERSION}/products/${id}`,
     create: `${API}/${VERSION}/products`,

@@ -1,7 +1,7 @@
 import { useRef } from 'react';
 import { createProduct } from '@services/API/products';
 
-function FormProduct() {
+function FormProduct({ setOpen, setAlert }) {
   const formRef = useRef(null);
 
   const handleSubmit = (e) => {
@@ -16,12 +16,26 @@ function FormProduct() {
       categoryId: parseInt(formData.get('category')),
       images: [formData.get('images').name],
     };
-    try {
-      createProduct(data);
-      console.log(data);
-    } catch (e) {
-      console.log(e);
-    }
+    createProduct(data)
+      .then(() => {
+        setAlert({
+          active: true,
+          message: 'Product created successfully',
+          type: 'success',
+          autoClose: false,
+        });
+        setOpen(false);
+      })
+      .catch((e) => {
+        setAlert({
+          active: true,
+          message: e.message,
+          type: 'error',
+          autoClose: false,
+        });
+        setOpen(false);
+        console.log(e);
+      });
   };
   return (
     <form ref={formRef} onSubmit={handleSubmit}>
