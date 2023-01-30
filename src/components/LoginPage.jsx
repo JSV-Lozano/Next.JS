@@ -19,7 +19,7 @@ export default function LoginPage() {
     auth
       .singIn(email, password)
       .then(() => {
-        router.push("/dashboard")
+        router.push('/dashboard');
       })
       .catch((err) => {
         if (err.response.status === 401) {
@@ -44,6 +44,7 @@ export default function LoginPage() {
                   Email address
                 </label>
                 <input
+                  value="john@mail.com"
                   id="email-address"
                   name="email"
                   type="email"
@@ -59,6 +60,7 @@ export default function LoginPage() {
                   Password
                 </label>
                 <input
+                  value="changeme"
                   id="password"
                   name="password"
                   type="password"
